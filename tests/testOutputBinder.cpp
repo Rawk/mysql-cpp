@@ -75,8 +75,9 @@ void testSetResult() {
             buffer.at(i) = result.at(i) = static_cast<char>(
                 (rand_r(&randSeed) % 10 + 'a'));
         }
-        buffer.push_back('\0');
-        bind.buffer = &buffer.at(0);
+        bind.buffer = buffer.data();
+        unsigned long length = buffer.size();
+        bind.length = &length;
         bind.is_null = &nullFlag;
         string output;
         OutputBinderResultSetter<string>::setResult(&output, bind);
@@ -153,8 +154,9 @@ void testSetResult() {
             buffer.at(i) = result.at(i) = static_cast<char>(
                 (rand_r(&randSeed) % 10 + 'a'));
         }
-        buffer.push_back('\0');
-        bind.buffer = &buffer.at(0);
+        bind.buffer = buffer.data();
+        unsigned long length = buffer.size();
+        bind.length = &length;
         nullFlag = false;
         bind.is_null = &nullFlag;
         OutputBinderResultSetter<decltype(ptr)>::setResult(&ptr, bind);
@@ -265,8 +267,9 @@ void testSetResult() {
             buffer.at(i) = result.at(i) = static_cast<char>(
                 (rand_r(&randSeed) % 10 + 'a'));
         }
-        buffer.push_back('\0');
-        bind.buffer = &buffer.at(0);
+        bind.buffer = buffer.data();
+        unsigned long length = buffer.size();
+        bind.length = &length;
         nullFlag = false;
         bind.is_null = &nullFlag;
         OutputBinderResultSetter<decltype(ptr)>::setResult(&ptr, bind);

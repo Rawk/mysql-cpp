@@ -68,7 +68,7 @@ void testSetResult() {
     TYPE_TEST_SET_RESULT(int64_t)
     TYPE_TEST_SET_RESULT(uint64_t)
     {  // NOLINT[whitespace/parens]
-        string result(" ", 5);
+        string result(5, ' ');
         vector<char> buffer(result.size());
         for (size_t i = 0; i < result.size(); ++i) {
             // Let's avoid \0
@@ -145,7 +145,7 @@ void testSetResult() {
     SHARED_PTR_TYPE_TEST_SET_RESULT(int64_t)
     SHARED_PTR_TYPE_TEST_SET_RESULT(uint64_t)
     {  // NOLINT[whitespace/parens]
-        string result(" ", 5);
+        string result(5, ' ');
         shared_ptr<decltype(result)> ptr;
         vector<char> buffer(result.size());
         for (size_t i = 0; i < result.size(); ++i) {
@@ -257,7 +257,7 @@ void testSetResult() {
     UNIQUE_PTR_TYPE_TEST_SET_RESULT(int64_t)
     UNIQUE_PTR_TYPE_TEST_SET_RESULT(uint64_t)
     {  // NOLINT[whitespace/parens]
-        string result(" ", 5);
+        string result(5, ' ');
         unique_ptr<decltype(result)> ptr;
         vector<char> buffer(result.size());
         for (size_t i = 0; i < result.size(); ++i) {

@@ -8,6 +8,7 @@ WARNING_CXXFLAGS = -Wall -Wextra -Weffc++ -Wfloat-equal -Wshadow\
 	-Wpointer-arith -Wcast-align -Wstrict-overflow=5\
 	-Wwrite-strings -Wswitch-default -Wswitch-enum -Wparentheses\
 	-Woverloaded-virtual -Wconversion -pedantic
+LDFLAGS=`mysql_config --libs_r`
 CXXFLAGS=-std=$(CXX_STANDARD) $(WARNING_CXXFLAGS) -g --coverage
 STATICFLAGS=$(CXXFLAGS) -c -fPIC
 SHAREDFLAGS=$(CXXFLAGS) -shared
@@ -15,7 +16,7 @@ SHAREDFLAGS=$(CXXFLAGS) -shared
 all: examples test
 
 examples: examples.o libmysqlcpp.so
-	$(CXX) $(CXXFLAGS) examples.o libmysqlcpp.so -lmysqlclient_r -o examples
+	$(CXX) $(CXXFLAGS) examples.o libmysqlcpp.so $(LDFLAGS) -o examples
 
 examples.o: examples.cpp MySql.hpp MySqlException.hpp InputBinder.hpp \
 	OutputBinder.hpp
@@ -47,7 +48,7 @@ test: tests/test.o tests/testInputBinder.o tests/testInputBinder.hpp \
 	$(CXX) $(CXXFLAGS) tests/test.o tests/testInputBinder.o \
 		tests/testOutputBinder.o tests/testMySql.o MySqlException.o MySql.o \
 		MySqlPreparedStatement.o OutputBinder.o \
-		-lboost_unit_test_framework -lmysqlclient_r -o test
+		-lboost_unit_test_framework $(LDFLAGS) -o test
 
 tests/testInputBinder.o: tests/testInputBinder.cpp tests/testInputBinder.hpp \
 	InputBinder.hpp
